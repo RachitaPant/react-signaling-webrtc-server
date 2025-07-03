@@ -21,6 +21,11 @@ io.on("connection", (socket) => {
   socket.on("user:call", ({ to, offer }) => {
     io.to(to).emit("incomming:call", { from: socket.id, offer });
   });
+  socket.on("call:end", ({ to }) => {
+  console.log(`Call ended by ${socket.id}`);
+  io.to(to).emit("call:end");
+});
+
 
   socket.on("call:accepted", ({ to, ans }) => {
     io.to(to).emit("call:accepted", { from: socket.id, ans });
